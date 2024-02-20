@@ -1,11 +1,4 @@
-// import { httpServer } from "./src/http_server/index";
-
-// const HTTP_PORT = 8181;
-
-// console.log(`Start static http server on the ${HTTP_PORT} port!`);
-// httpServer.listen(HTTP_PORT);
-
-
+import { savePlayerInDB } from "players";
 import { WebSocketServer } from "ws";
 
 export const wsServer = new WebSocketServer({ port: 3000 });
@@ -13,12 +6,10 @@ export const wsServer = new WebSocketServer({ port: 3000 });
 wsServer.on('connection', (socket) => {
   console.log('Client connected');
 
-  // Send a welcome message to the client
-  //socket.send('Welcome to the WebSocket server!');
-
   // Listen for messages from the client
-  socket.on('message', (message) => {
-      console.log(`Received message: ${message}`);
+  socket.on('message', (message: string) => {
+    console.log(`Received message: ${message}`);
+    savePlayerInDB(socket, message);
   });
 
   // Handle socket closure
