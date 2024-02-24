@@ -46,3 +46,8 @@ export type UserToRoom = {
 export type IndexRoom = {
   indexRoom: number,
 };
+
+export type DataGame = {
+  idGame: number; 
+  idPlayer: number | undefined;
+};

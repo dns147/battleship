@@ -1,31 +1,28 @@
-import { listRooms, playersDB, tableWinners } from "storage";
+import { listRooms, tableWinners } from "storage";
 import { DataRooms, DataWinners, RoomUsers } from "types";
 
 export const updateRooms = (userName?: string, indexRoom?: number): DataRooms[] => {
   if (userName && indexRoom === undefined) {
     listRooms.push({
-      roomId: listRooms.length ? 0 : listRooms.length,
+      roomId: getRandomId(),
       roomUsers: [],
     });
   }
 
   if (userName && indexRoom !== undefined) {
-    const room: RoomUsers = {
+    const currentRoom: RoomUsers = {
       name: userName,
-      index: indexRoom,
+      index: getRandomId(),
     };
 
-    listRooms.push({
-      roomId: listRooms.length ? 0 : listRooms.length,
-      roomUsers: [room],
+    listRooms.forEach((room: DataRooms) => {
+      const roomUsers: RoomUsers[] = room.roomUsers;
+
+      if (room.roomId === indexRoom) {
+        roomUsers.push(currentRoom);
+      }
     });
-
-    console.log('indexRoom', indexRoom);
-
-    listRooms.splice(indexRoom, 1);
   }
-
-  console.log('listRooms', listRooms);
 
   return listRooms;
 };
@@ -46,3 +43,20 @@ export const updateWinners = (userName: string): DataWinners[] => {
 
   return tableWinners;
 };
+
+const min = 1;
+const max = 100;
+const numbers = Array.from({ length: max - min + 1 }, (_, i) => min + i);
+
+export const getRandomId = (): number => {
+  let id = 0;
+  const random_number = Math.floor(Math.random() * (max - min)) + min;
+  const indexNumber = numbers.indexOf(random_number);
+
+  if (indexNumber !== -1) {
+    id = random_number;
+    numbers.splice(indexNumber, 1);
+  }
+
+  return id;
+}

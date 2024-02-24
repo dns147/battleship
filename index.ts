@@ -1,5 +1,6 @@
 import { handleMessages } from "handleMessages";
 import { httpServer } from "http_server";
+import { wsStorage } from "storage";
 import { WebSocketServer } from "ws";
 
 const HTTP_PORT = 8181;
@@ -10,6 +11,8 @@ export const wsServer = new WebSocketServer({ port: 3000 });
 
 wsServer.on('connection', (socket) => {
   console.log('Client connected');
+
+  wsStorage.push(socket);
 
   // Listen for messages from the client
   socket.on('message', (message: string) => {
