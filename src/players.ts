@@ -1,17 +1,18 @@
-import { Player, RegPlayer, RegUser } from "types";
+import { DataRooms, DataWinners, ReceivedData, RegPlayer, RegUser, DataPlayer } from "types";
+import { updateRooms, updateWinners } from "utils";
 import { WebSocket } from "ws";
 
-const db: Player[] = []; 
+export const playersDB: DataPlayer[] = [];
 
-const savePlayerInDB = (socket: WebSocket, message: string) => {
-  const receivedData: Player = JSON.parse(message);
+const regPlayer = (socket: WebSocket, receivedData: ReceivedData): void => {
+  const receivedDataPlayer: DataPlayer = JSON.parse(receivedData.data);
+  const userName: string = receivedDataPlayer.name;
   
-  db.push(receivedData);
-  console.log(db);
+  playersDB.push(receivedDataPlayer);
 
   const dataPlayer: RegUser = {
-    name: receivedData.data.name,
-    index: 0,
+    name: userName,
+    index: playersDB.length - 1,
     error: false,
     errorText: '',
   };
@@ -22,7 +23,25 @@ const savePlayerInDB = (socket: WebSocket, message: string) => {
     id: 0,
   };
 
+  const dataRooms: DataRooms[] = updateRooms();
+
+  const rooms: ReceivedData = {
+    type: 'update_room',
+    data: JSON.stringify(dataRooms),
+    id: 0,
+  };
+
+  const dataWinners: DataWinners[] = updateWinners(userName);
+
+  const winners: ReceivedData = {
+    type: 'update_winners',
+    data: JSON.stringify(dataWinners),
+    id: 0,
+  };
+
   socket.send(JSON.stringify(regDataPlayer));
+  socket.send(JSON.stringify(rooms));
+  socket.send(JSON.stringify(winners));
 };
 
-export {savePlayerInDB};
+export {regPlayer};
