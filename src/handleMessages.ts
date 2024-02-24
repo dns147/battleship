@@ -1,5 +1,5 @@
 import { regPlayer } from "players";
-import { createRoom } from "rooms";
+import { addUserToRoom, createRoom } from "rooms";
 import { ReceivedData } from "types";
 import { WebSocket } from "ws";
 
@@ -13,6 +13,10 @@ export const handleMessages = (socket: WebSocket, message: string) => {
 
     case 'create_room':
       createRoom(socket);
+      break;
+
+    case 'add_user_to_room':
+      addUserToRoom(socket, receivedData);
       break;
   
     default:

@@ -1,20 +1,31 @@
+import { listRooms, playersDB, tableWinners } from "storage";
 import { DataRooms, DataWinners, RoomUsers } from "types";
 
-const tableWinners: DataWinners[] = [];
-const listRooms: DataRooms[] = []; 
+export const updateRooms = (userName?: string, indexRoom?: number): DataRooms[] => {
+  if (userName && indexRoom === undefined) {
+    listRooms.push({
+      roomId: listRooms.length ? 0 : listRooms.length,
+      roomUsers: [],
+    });
+  }
 
-export const updateRooms = (userName?: string): DataRooms[] => {
-  if (userName) {
+  if (userName && indexRoom !== undefined) {
     const room: RoomUsers = {
       name: userName,
-      index: listRooms.length,
+      index: indexRoom,
     };
 
     listRooms.push({
-      roomId: listRooms.length,
+      roomId: listRooms.length ? 0 : listRooms.length,
       roomUsers: [room],
     });
+
+    console.log('indexRoom', indexRoom);
+
+    listRooms.splice(indexRoom, 1);
   }
+
+  console.log('listRooms', listRooms);
 
   return listRooms;
 };

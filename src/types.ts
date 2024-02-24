@@ -22,22 +22,10 @@ export type RegUser = {
   errorText: string;
 };
 
-// export type Winners = {
-//   type: string;
-//   data: string;
-//   id: number;
-// };
-
 export type DataWinners = {
   name: string;
   wins: number;
 };
-
-// export type Rooms = {
-//   type: string;
-//   data: string;
-//   id: number;
-// }
 
 export type DataRooms = {
   roomId: number;
@@ -47,4 +35,14 @@ export type DataRooms = {
 export type RoomUsers = {
   name: string;
   index: number;
+};
+
+export type UserToRoom = {
+  type: string;
+  data: string;
+  id: number;
+};
+
+export type IndexRoom = {
+  indexRoom: number,
 };
