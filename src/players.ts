@@ -1,7 +1,10 @@
 import { playersDB } from "storage";
 import { DataRooms, DataWinners, ReceivedData, RegPlayer, RegUser, DataPlayer } from "types";
-import { updateRooms, updateWinners } from "utils";
+import { getRandomId, updateRooms, updateWinners } from "utils";
 import { WebSocket } from "ws";
+
+export let indexPlayer: number | null = null;
+export const idPlayers: number[] = [];
 
 export const regPlayer = (socket: WebSocket, receivedData: ReceivedData): void => {
   const receivedDataPlayer: DataPlayer = JSON.parse(receivedData.data);
@@ -9,11 +12,13 @@ export const regPlayer = (socket: WebSocket, receivedData: ReceivedData): void =
   
   playersDB.push(receivedDataPlayer);
 
-  console.log('playersDB', playersDB);
+  indexPlayer = getRandomId();
+  idPlayers.push(indexPlayer);
+
 
   const dataPlayer: RegUser = {
     name: userName,
-    index: playersDB.length - 1,
+    index: indexPlayer,
     error: false,
     errorText: '',
   };

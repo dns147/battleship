@@ -1,3 +1,5 @@
+import WebSocket from "ws";
+
 export type ReceivedData = {
   type: string;
   data: string;
@@ -17,7 +19,7 @@ export type RegPlayer = {
 
 export type RegUser = {
   name: string;
-  index: number;
+  index: number | null;
   error: boolean;
   errorText: string;
 };
@@ -34,7 +36,7 @@ export type DataRooms = {
 
 export type RoomUsers = {
   name: string;
-  index: number;
+  index: number | null;
 };
 
 export type UserToRoom = {
@@ -50,4 +52,35 @@ export type IndexRoom = {
 export type DataGame = {
   idGame: number; 
   idPlayer: number | undefined;
+};
+
+export type WS = {
+  socket: WebSocket; 
+  state: boolean | undefined;
+};
+
+export type DataShips = {
+  gameId: number;
+  ships: Ships[];
+  indexPlayer: number;
+};
+
+export type Ships = {
+  position: {
+    x: number,
+    y: number,
+  };
+  direction: boolean;
+  length: number;
+  type: 'small' | 'medium' | 'large' | 'huge';
+};
+
+export type PlayerShips = {
+  socket: WebSocket; 
+  dataShips: DataShips;
+};
+
+export type GameDataShips = {
+  ships: Ships[];
+  currentPlayerIndex: number;
 };

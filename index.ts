@@ -12,7 +12,10 @@ export const wsServer = new WebSocketServer({ port: 3000 });
 wsServer.on('connection', (socket) => {
   console.log('Client connected');
 
-  wsStorage.push(socket);
+  wsStorage.push({
+    socket: socket,
+    state: true,
+  });
 
   // Listen for messages from the client
   socket.on('message', (message: string) => {

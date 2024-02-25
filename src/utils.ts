@@ -1,3 +1,4 @@
+import { indexPlayer } from "players";
 import { listRooms, tableWinners } from "storage";
 import { DataRooms, DataWinners, RoomUsers } from "types";
 
@@ -12,13 +13,13 @@ export const updateRooms = (userName?: string, indexRoom?: number): DataRooms[] 
   if (userName && indexRoom !== undefined) {
     const currentRoom: RoomUsers = {
       name: userName,
-      index: getRandomId(),
+      index: indexPlayer,
     };
-
+    
     listRooms.forEach((room: DataRooms) => {
       const roomUsers: RoomUsers[] = room.roomUsers;
 
-      if (room.roomId === indexRoom) {
+      if (room.roomId === indexRoom && roomUsers.length < 1) {
         roomUsers.push(currentRoom);
       }
     });
