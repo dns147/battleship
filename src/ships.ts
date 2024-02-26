@@ -1,5 +1,5 @@
-import { playerShips } from "storage";
-import { DataShips, GameDataShips, ReceivedData } from "types";
+import { idPlayerShips, playerShips } from "storage";
+import { DataShips, GameDataShips, ReceivedData, Ships } from "types";
 import { WebSocket } from "ws";
 
 export const addShips = (socket: WebSocket, receivedData: ReceivedData): void => {
@@ -12,7 +12,21 @@ export const addShips = (socket: WebSocket, receivedData: ReceivedData): void =>
 
   if (playerShips.length === 2) {
     const id1: number | undefined = playerShips[0]?.dataShips.indexPlayer;
-    //const id2: number | undefined = playerShips[1]?.dataShips.indexPlayer;
+    const id2: number | undefined = playerShips[1]?.dataShips.indexPlayer;
+
+    const ships1: Ships[] | undefined = playerShips[0]?.dataShips.ships;
+    const ships2: Ships[] | undefined = playerShips[1]?.dataShips.ships;
+
+    idPlayerShips.push(
+      {
+        idPlayer: id1,
+        ships: ships1,
+      },
+      {
+        idPlayer: id2,
+        ships: ships2,
+      },
+    );
     
     playerShips.forEach((player) => {
       const gameDataShips: GameDataShips = {
@@ -27,6 +41,8 @@ export const addShips = (socket: WebSocket, receivedData: ReceivedData): void =>
       };
 
       player.socket.send(JSON.stringify(ships));
+
+      // nextPlayer.id = id1;
 
       const turn: ReceivedData = {
         type: 'turn',

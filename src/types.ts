@@ -75,6 +75,11 @@ export type Ships = {
   type: 'small' | 'medium' | 'large' | 'huge';
 };
 
+export type DataIdPlayerShips = {
+  idPlayer: number | undefined,
+  ships: Ships[] | undefined,
+};
+
 export type PlayerShips = {
   socket: WebSocket; 
   dataShips: DataShips;
@@ -97,7 +102,7 @@ export type DataAttackBack = {
     y: number,
   },
   currentPlayer: number | undefined;
-  status: 'miss' | 'killed' | 'shot';
+  status: string;
 };
 
 export type DataAttackFront = {
@@ -106,4 +111,13 @@ export type DataAttackFront = {
   y: number;
   indexPlayer: number;
 };
+
+// export type NextPlayer = {
+//   id: number | undefined;
+// }
+
+export type Move = {
+  id: number;
+  count: number;
+}
 
