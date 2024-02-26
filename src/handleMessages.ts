@@ -1,3 +1,4 @@
+import { attack } from "attack";
 import { regPlayer } from "players";
 import { addUserToRoom, createRoom } from "rooms";
 import { addShips } from "ships";
@@ -22,6 +23,10 @@ export const handleMessages = (socket: WebSocket, message: string) => {
 
     case 'add_ships':
       addShips(socket, receivedData);
+      break;
+
+    case 'attack':
+      attack(socket, receivedData);
       break;
   
     default:

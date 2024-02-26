@@ -45,6 +45,10 @@ export const updateWinners = (userName: string): DataWinners[] => {
   return tableWinners;
 };
 
+// export const turn = (): void => {
+
+// };
+
 const min = 1;
 const max = 100;
 const numbers = Array.from({ length: max - min + 1 }, (_, i) => min + i);

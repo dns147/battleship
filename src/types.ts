@@ -84,3 +84,26 @@ export type GameDataShips = {
   ships: Ships[];
   currentPlayerIndex: number;
 };
+
+export type TurnPlayer = {
+  type: string;
+  data: string;
+  id: number;
+};
+
+export type DataAttackBack = {
+  position: {
+    x: number,
+    y: number,
+  },
+  currentPlayer: number | undefined;
+  status: 'miss' | 'killed' | 'shot';
+};
+
+export type DataAttackFront = {
+  gameId: number;
+  x: number;
+  y: number;
+  indexPlayer: number;
+};
+

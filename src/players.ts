@@ -1,10 +1,10 @@
-import { playersDB } from "storage";
+import { idPlayers, playersDB } from "storage";
 import { DataRooms, DataWinners, ReceivedData, RegPlayer, RegUser, DataPlayer } from "types";
 import { getRandomId, updateRooms, updateWinners } from "utils";
 import { WebSocket } from "ws";
 
 export let indexPlayer: number | null = null;
-export const idPlayers: number[] = [];
+//export const idPlayers: number[] = [];
 
 export const regPlayer = (socket: WebSocket, receivedData: ReceivedData): void => {
   const receivedDataPlayer: DataPlayer = JSON.parse(receivedData.data);

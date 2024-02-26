@@ -9,3 +9,5 @@ export const listRooms: DataRooms[] = [];
 export const wsStorage: WS[] = [];
 
 export const playerShips: PlayerShips[] = [];
+
+export const idPlayers: number[] = [];
